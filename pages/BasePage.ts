@@ -10,14 +10,11 @@ export class BasePage {
     this.locators = new LocatorReader(...locatorFiles);
   }
 
-  // ── Locator shortcuts ──────────────────────────────────────────────────────
 
-  /** First match for a locator key. */
   protected $(key: string): Locator {
     return this.locators.getLocator(this.page, key).first();
   }
 
-  /** All matches for a locator key. */
   protected $$(key: string): Locator {
     return this.locators.getLocator(this.page, key);
   }
@@ -79,7 +76,9 @@ export class BasePage {
   async type(key: string, value: string): Promise<void> {
     await this.waitForVisible(key);
     await this.$(key).clear();
-    await this.$(key).pressSequentially(value);
+    await this.$(key).pressSequentially(value, {delay: 80});
+    await this.$(key).dispatchEvent('input');
+    await this.$(key).dispatchEvent('change');
   }
 
   async selectOption(key: string, value: string): Promise<void> {
