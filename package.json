@@ -1,0 +1,21 @@
+{
+  "name": "sleekflow-playwright-automation",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:chrome": "npx playwright test --project=chromium",
+    "test:firefox": "npx playwright test --project=firefox",
+    "test:webkit": "npx playwright test --project=webkit",
+    "test:headed": "npx playwright test --headed --project=chromium",
+    "test:signup": "npx playwright test tests/signup.spec.ts --project=chromium",
+    "test:signup:headed": "npx playwright test tests/signup.spec.ts --project=chromium --headed",
+    "test:signin": "npx playwright test tests/signin.spec.ts --project=chromium",
+    "test:signin:headed": "npx playwright test tests/signin.spec.ts --project=chromium --headed",
+    "report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.4.0"
+  }
+}

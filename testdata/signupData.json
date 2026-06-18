@@ -1,0 +1,64 @@
+{
+  "signup": {
+    "validUser": {
+      "email": "maievhhhh@gmail.com",
+      "password": "Test@1234!"
+    },
+    "existingUser": {
+      "email": "erifaisol95@gmail.com",
+      "password": "Test@123456"
+    },
+    "invalidUsers": [
+      {
+        "scenario": "invalid email format",
+        "email": "notanemail",
+        "password": "Test@1234!"
+      },
+      {
+        "scenario": "empty email",
+        "email": "",
+        "password": "Test@1234!"
+      },
+      {
+        "scenario": "empty password",
+        "email": "testuser.sleekflow+002@mailinator.com",
+        "password": ""
+      },
+      {
+        "scenario": "less than minimum characters",
+        "email": "testuser.sleekflow+001@mailinator.com",
+        "password": "Test@1"
+      },
+      {
+        "scenario": "password only contains lower case and number",
+        "email": "testuser.sleekflow+002@mailinator.com",
+        "password": "test123456"
+      },
+      {
+        "scenario": "password only contains lower case and upper case",
+        "email": "testuser.sleekflow+003@mailinator.com",
+        "password": "testEriF"
+      },
+      {
+        "scenario": "password only contains lower case and special characters",
+        "email": "testuser.sleekflow+004@mailinator.com",
+        "password": "test!@#$%"
+      },
+      {
+        "scenario": "password only contains upper case and number",
+        "email": "testuser.sleekflow+005@mailinator.com",
+        "password": "ERI123456"
+      },
+      {
+        "scenario": "password only contains upper case and special characters",
+        "email": "testuser.sleekflow+006@mailinator.com",
+        "password": "ERI!@#$%^"
+      },
+      {
+        "scenario": "password only contains number and special characters",
+        "email": "testuser.sleekflow+007@mailinator.com",
+        "password": "1234!@#$%"
+      }
+    ]
+  }
+}

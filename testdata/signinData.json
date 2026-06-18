@@ -1,0 +1,20 @@
+{
+  "signin": {
+    "validUser": {
+      "email": "erifaisol95@gmail.com",
+      "password": "Erif@993"
+    },
+    "invalidUsers": [
+      {
+        "scenario": "wrong password",
+        "email": "erifaisol95@gmail.com",
+        "password": "Test@123123"
+      },
+      {
+        "scenario": "empty password",
+        "email": "erifaisol95@gmail.com",
+        "password": ""
+      }
+    ]
+  }
+}
