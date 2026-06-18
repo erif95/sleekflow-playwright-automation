@@ -29,7 +29,7 @@ End-to-end test automation for the [SleekFlow](https://sleekflow.io) signup flow
 
 ## Key Design Decisions
 
-**LocatorReader** — builds the Map once at construction, zero I/O per lookup. Supports 8 selector strategies: `css`, `xpath`, `id`, `text`, `testid`, `placeholder`, `label`, `role`. Role options (`name`, `exact`) are parsed from `role=button[name="Submit" exact=true]` syntax.
+**LocatorReader** build helper to read locator from properties files. Supports 8 selector strategies: `css`, `xpath`, `id`, `text`, `testid`, `placeholder`, `label`, `role`. Role options (`name`, `exact`) are parsed from `role=button[name="Submit" exact=true]` syntax.
 
 **DataReader** — dot-notation traversal (`get('signup.validUser.email')`), typed generics, minimal surface area.
 
