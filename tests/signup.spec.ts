@@ -83,7 +83,6 @@ test.describe('SleekFlow Signup Flow', () => {
     expect(await signupPage.isOnSignupPage()).toBeTruthy();
     const user = data.getArray('signup.invalidUsers').find(u => u.scenario === 'less than minimum characters')!;
     await signupPage.inputEmail(user.email);
-    await signupPage.delay();
     await signupPage.agreeToTerms();
     await signupPage.clickSignUp();
     await signupPage.inputPassword(user.password);
@@ -96,7 +95,6 @@ test.describe('SleekFlow Signup Flow', () => {
     expect(await signupPage.isOnSignupPage()).toBeTruthy();
     const user = data.getArray('signup.invalidUsers').find(u => u.scenario === 'password only contains lower case and number')!;
     await signupPage.inputEmail(user.email);
-    await signupPage.delay();
     await signupPage.agreeToTerms();
     await signupPage.clickSignUp();
     await signupPage.inputPassword(user.password);
