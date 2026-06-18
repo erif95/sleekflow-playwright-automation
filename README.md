@@ -10,11 +10,14 @@ End-to-end test automation for the [SleekFlow](https://sleekflow.io) signup flow
 ├── pages/
 │   ├── BasePage.ts             # Shared browser interaction methods
 │   ├── SignupPage.ts           # Signup flow page object
+|   ├── LoginPage.json          # Signin flow page object
 │   └── index.ts
 ├── testdata/
-│   └── signupData.json         # Signup credentials only (no validation strings)
+│   ├── signinData.json       # Signin credentials only
+│   ├── signupData.json       # Signup credentials only
 ├── tests/
-│   └── signup.spec.ts          # 8 test cases: happy path + validation
+│   ├── signin.spec.ts      # test suite (happy path and negative case)
+│   ├── signup.spec.ts      # test suite (happy path and negative case)
 ├── utility/
 │   ├── LocatorReader.ts        # Parses .properties → Playwright Locators
 │   ├── DataReader.ts           # Reads JSON with dot-notation keys
@@ -26,7 +29,7 @@ End-to-end test automation for the [SleekFlow](https://sleekflow.io) signup flow
 
 ## Key Design Decisions
 
-**LocatorReader** — builds the Map once at construction, zero I/O per lookup. Supports 8 selector strategies: `css`, `xpath`, `id`, `text`, `testid`, `placeholder`, `label`, `role`. Role options (`name`, `exact`) are parsed from `role=button[name="Submit" exact=true]` syntax.
+**LocatorReader** build helper to read locator from properties files. Supports 8 selector strategies: `css`, `xpath`, `id`, `text`, `testid`, `placeholder`, `label`, `role`. Role options (`name`, `exact`) are parsed from `role=button[name="Submit" exact=true]` syntax.
 
 **DataReader** — dot-notation traversal (`get('signup.validUser.email')`), typed generics, minimal surface area.
 
@@ -58,10 +61,20 @@ npm run test:signup
 # Signup tests visible in browser
 npm run test:signup:headed
 
-# By browser
+# SignIn tests only (Chromium, headless)
+npm run test:signin
+
+# Signup tests visible in browser
+npm run test:signin:headed
+
+# By browser headless
 npm run test:chrome
 npm run test:firefox
 npm run test:webkit
+
+# Run specific test 
+npx playwright test -g "LOG01" --project=chromium
+npx playwright test -g "REG01" --project=chromium
 
 # Open HTML report after a run
 npm run report
@@ -69,17 +82,24 @@ npm run report
 
 ## Test Cases
 
-| ID   | Scenario                                          |
-|------|---------------------------------------------------|
-| SF01 | Signup page loads correctly                       |
-| SF02 | Valid credentials → proceeds to step 2            |
-| SF03 | Full signup flow completes account creation       |
-| SF04 | Invalid email format shows error                  |
-| SF05 | Empty email shows error                           |
-| SF06 | Empty password shows error                        |
-| SF07 | Weak password shows error                         |
-| SF08 | Already registered email shows error              |
-
-## Notes on Locators
+| ID   | Scenario                                                     |
+|------|---------------------------------------------------           |
+| LOG01 | Login with all field username / email and password is empty |                       
+| LOG02 | Login with wrong password                                   |
+| LOG03 | Login with valid email and password                         |
+| LOG04 | Login with valid email and empty password                   |
+| REG01 | signup with invalid format email                            |
+| REG02 | signup with empty email                                     |
+| REG03 | signup without thick checkbox                               |
+| REG04 | signup with existing users                                  |
+| REG05 | signup with valid users                                     |
+| REG06 | signup with empty password                                  |
+| REG07 | signup with password less than minimum characters           |
+| REG08 | signup with password only contains lower case and number       |
+| REG09 | signup with password only contains lower case and upper case   |
+| REG10 | signup with password only contains lower case and special characters |
+| REG11 | signup with password only contains upper case and number             |
+| REG12 | signup with password only contains upper case and special characters |
+| REG13 | signup with password only contains number and special characters     |
 
 SleekFlow's signup form (`https://app.sleekflow.io/en?screen_hint=signup`) uses Auth0 under the hood. The `.properties` file uses `placeholder=` and `role=` strategies which are resilient to class-name changes. If the UI changes, update only `locators/signup.properties` — no TypeScript changes needed.
